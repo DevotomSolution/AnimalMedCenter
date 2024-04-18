@@ -18,7 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $recordTitleAttribute = 'utilizatori';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationGroup = 'Administratie';
+    protected static ?string $navigationLabel = 'Utilizatori';
+    protected static ?string $pluralModelLabel = 'Utilizatori';
+    protected static ?string $slug = 'utilizatori';
     protected static ?string $navigationIcon = 'heroicon-m-user-group';
 
     public static function form(Form $form): Form
@@ -46,9 +50,6 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
