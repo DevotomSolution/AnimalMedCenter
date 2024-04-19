@@ -26,6 +26,21 @@ class AppoimentResource extends Resource
     protected static ?string $model = Appoiment::class;
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Appoiments');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Appoiment');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Appoiments');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -53,13 +68,13 @@ class AppoimentResource extends Resource
                         '17:30',
                         '18:00'
                     ])
-                    ->label('Time'),
+                    ->label(__('Time')),
                 DatePicker::make('p_date')
                     ->native(false)
                     ->displayFormat('d/m/Y')
-                    ->label('Date'),
+                    ->label(__('Date')),
                 TextInput::make('p_name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->placeholder('EX.: John Doner'),
                 Select::make('p_appoiment_to')
                     ->searchable()
@@ -70,26 +85,26 @@ class AppoimentResource extends Resource
                         'Surgery' => 'Surgery',
                         'Urgent' => 'Urgent problems'
                     ])
-                    ->label('Appoiment to'),
+                    ->label(__('Appoiment to')),
                 Select::make('p_doctor')
                     ->searchable()
                     ->options([
                         'Doctor1' => 'Doctor 1',
                         'Doctor2' => 'Doctor 2'
                     ])
-                    ->label('Doctor'),//TODO: Create relationship with user where have role doctors
+                    ->label(__('Doctor')),//TODO: Create relationship with user where have role doctors
                 TextInput::make('p_reason')
-                    ->label('Reason')
+                    ->label(__('Reason'))
                     ->placeholder('EX.: My dog have problem with food'),
                 TextInput::make('p_phone')
                     ->tel()
                     ->maxLength(10)
                     ->placeholder('EX.: 0752412421')
-                    ->label('Phone number'),
+                    ->label(__('Phone number')),
                 TextInput::make('p_email')
                     ->email()
                     ->placeholder('EX.: animalmedcenter@gmail.com')
-                    ->label('Email'),
+                    ->label(__('Email')),
                 ToggleButtons::make('p_status_appoiment')
                     ->options([
                         'Waiting' => 'Waiting',
@@ -116,7 +131,7 @@ class AppoimentResource extends Resource
                         'Expired' => 'heroicon-o-shield-exclamation'
                     ])
                     ->columns(3)
-                    ->label('Status Appoiment'),
+                    ->label(__('Status Appoiment')),
                 ToggleButtons::make('p_gdpr_status')
                     ->options([
                         'Invalid' => 'Invalid',
@@ -133,7 +148,7 @@ class AppoimentResource extends Resource
                         'Decline' => 'heroicon-o-x-circle',
                         'Accepted' => 'heroicon-o-check-circle'
                     ])
-                    ->label('Status GDPR')
+                    ->label(__('Status GDPR'))
                     ->inline(),
             ]);
     }
@@ -144,16 +159,16 @@ class AppoimentResource extends Resource
             ->columns([
                 TextColumn::make('p_time')
                     ->time()
-                    ->label('Time'),
+                    ->label(__('Time')),
                 TextColumn::make('p_date')
                     ->date()
-                    ->label('Date'),
+                    ->label(__('Date')),
                 TextColumn::make('p_name')
-                    ->label('Name'),
+                    ->label(__('Name')),
                 TextColumn::make('p_phone')
-                    ->label('Phone'),
+                    ->label(__('Phone')),
                 TextColumn::make('p_email')
-                    ->label('Email'),
+                    ->label(__('Email')),
             ])
             ->filters([
                 //
