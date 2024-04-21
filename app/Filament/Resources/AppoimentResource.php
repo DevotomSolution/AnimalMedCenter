@@ -6,6 +6,7 @@ use App\Filament\Resources\AppoimentResource\Pages;
 use App\Filament\Resources\AppoimentResource\RelationManagers;
 use App\Models\Appoiment;
 use Faker\Provider\ar_EG\Text;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -14,9 +15,12 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -171,8 +175,34 @@ class AppoimentResource extends Resource
                     ->label(__('Email')),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('p_status_appoiment')
+                    ->options([
+                        'Waiting' => 'Waiting',
+                        'Accepted' => 'Accepted',
+                        'Declined' => 'Declined',
+                        'Progress' => 'In progress',
+                        'Complete' => 'Complete',
+                        'Expired' => 'Expired'
+                    ])
+                    ->multiple()
+                    ->label(__('Status Appoiment')),
+                SelectFilter::make('p_doctor')
+                    ->options([
+                        'Doctor1' => 'Doctor 1',
+                        'Doctor2' => 'Doctor 2'
+                    ])
+                    ->label(__('Doctor')),
+                SelectFilter::make('p_appoiment_to')
+                    ->options([
+                        'Styler' => 'Styler',
+                        'Periodic' => 'Periodic Check',
+                        'Deworming' => 'Deworming',
+                        'Surgery' => 'Surgery',
+                        'Urgent' => 'Urgent problems'
+                    ])
+                    ->label(__('Appoiment to'))
+
+            ], layout: FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
