@@ -18,20 +18,30 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $recordTitleAttribute = 'name';
-    protected static ?string $navigationGroup = 'Administratie';
-    protected static ?string $navigationLabel = 'Utilizatori';
-    protected static ?string $pluralModelLabel = 'Utilizatori';
-    protected static ?string $slug = 'utilizatori';
     protected static ?string $navigationIcon = 'heroicon-m-user-group';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Users');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('User');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Users');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')->required(),
-                TextInput::make('email')->email(),
-                TextInput::make('password')->password(),
+                TextInput::make('name')->required()->label(__('Name')),
+                TextInput::make('email')->email()->label(__('Email')),
+                TextInput::make('password')->password()->label(__('Password')),
             ]);
     }
 
@@ -39,9 +49,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('Nr'),
-                TextColumn::make('name')->label('Nume cont'),
-                TextColumn::make('email'),
+                TextColumn::make('id')->label('ID'),
+                TextColumn::make('name')->label(__('Name')),
+                TextColumn::make('email')->label(__('Email')),
             ])
             ->filters([
                 //
@@ -68,4 +78,5 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
 }
